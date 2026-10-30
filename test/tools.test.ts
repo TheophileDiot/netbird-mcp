@@ -119,6 +119,22 @@ describe("tool layer (via MCP client over in-memory transport)", () => {
     expect(recorder.calls).toHaveLength(0);
   });
 
+  it("rejects oversized tool collections before making any API call", async () => {
+    const client = await connectClient(baseConfig, recorder.fetchImpl);
+    try {
+      const result = await client.callTool({
+        name: "create_group",
+        arguments: { name: "too-large", peers: Array(10_001).fill("p1"), confirm: true },
+      });
+
+      expect(result.isError).toBe(true);
+      expect(textOf(result as never)).toMatch(/maximum.*elements/);
+      expect(recorder.calls).toHaveLength(0);
+    } finally {
+      await client.close();
+    }
+  });
+
   it("confirming an update sends exactly the non-undefined fields to the right method+path", async () => {
     recorder = makeRecordingFetch(() => jsonResponse({ id: "p1", name: "new-name" }));
     const client = await connectClient(baseConfig, recorder.fetchImpl);
