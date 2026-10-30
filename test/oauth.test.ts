@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { NetBirdOAuthProvider, type ProviderOptions } from "../src/oauth/provider.js";
-import { DEFAULT_MAX_REQUESTS_PER_MINUTE, DEFAULT_REQUEST_TIMEOUT_MS } from "../src/config.js";
+import { DEFAULT_MAX_REQUESTS_PER_MINUTE, DEFAULT_REQUEST_TIMEOUT_MS, DEFAULT_NETBIRD_API_URL } from "../src/config.js";
 import { REFRESH_TTL_SECONDS } from "../src/oauth/store.js";
 import { InvalidGrantError, InvalidTokenError } from "@modelcontextprotocol/sdk/server/auth/errors.js";
 import type { OAuthClientInformationFull } from "@modelcontextprotocol/sdk/shared/auth.js";
@@ -14,6 +14,7 @@ const { verifier: VERIFIER, challenge: CHALLENGE } = pkcePair(
 function newProvider(opts: Partial<ProviderOptions> = {}) {
   return new NetBirdOAuthProvider({
     logger: silentLogger,
+    defaultApiUrl: DEFAULT_NETBIRD_API_URL,
     verifyPatOnLogin: false,
     maxRequestsPerMinute: DEFAULT_MAX_REQUESTS_PER_MINUTE,
     requestTimeoutMs: DEFAULT_REQUEST_TIMEOUT_MS,

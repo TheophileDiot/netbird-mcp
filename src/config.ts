@@ -51,6 +51,8 @@ export interface HttpConfig {
 }
 
 export interface ServerConfig {
+  /** API base URL used when a request or login supplies no override. */
+  defaultApiUrl: string;
   /** Enable destructive tools (delete_peer, delete_policy, delete_group). */
   enableDestructive: boolean;
   /** Client-side cap kept under NetBird Cloud's 120 req/min limit. */
@@ -154,6 +156,7 @@ export function loadServerConfig(env: NodeJS.ProcessEnv = process.env): ServerCo
   const directPatEnabled = boolEnv(env.NETBIRD_ENABLE_DIRECT_PAT, !oauthEnabled);
 
   return {
+    defaultApiUrl: configuredBaseUrl,
     enableDestructive: boolEnv(env.NETBIRD_ENABLE_DESTRUCTIVE, false),
     maxRequestsPerMinute: intEnv(env.NETBIRD_MAX_RPM, DEFAULT_MAX_REQUESTS_PER_MINUTE),
     requestTimeoutMs: intEnv(env.NETBIRD_TIMEOUT_MS, DEFAULT_REQUEST_TIMEOUT_MS),
@@ -172,7 +175,7 @@ export function loadServerConfig(env: NodeJS.ProcessEnv = process.env): ServerCo
   };
 }
 
-export function normalizeBaseUrl(url: string | undefined): string {
-  const base = (url && url.trim()) || DEFAULT_NETBIRD_API_URL;
+export function normalizeBaseUrl(url: string | undefined, fallback = DEFAULT_NETBIRD_API_URL): string {
+  const base = (url && url.trim()) || fallback;
   return base.replace(/\/+$/, "");
 }

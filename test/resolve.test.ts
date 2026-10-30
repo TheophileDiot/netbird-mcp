@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { resolveAuth, type AuthResolutionOptions } from "../src/auth/resolve.js";
 import { NetBirdOAuthProvider } from "../src/oauth/provider.js";
-import { DEFAULT_MAX_REQUESTS_PER_MINUTE, DEFAULT_REQUEST_TIMEOUT_MS } from "../src/config.js";
+import { DEFAULT_MAX_REQUESTS_PER_MINUTE, DEFAULT_REQUEST_TIMEOUT_MS, DEFAULT_NETBIRD_API_URL } from "../src/config.js";
 import { AuthError, type AuthContext } from "../src/auth/context.js";
 import type { TokenVerification } from "../src/netbird/client.js";
 import type { OAuthClientInformationFull } from "@modelcontextprotocol/sdk/shared/auth.js";
@@ -23,6 +23,7 @@ const ALLOWED = ["api.netbird.io", "self.hosted"];
 function directOpts(over: Partial<AuthResolutionOptions> = {}): AuthResolutionOptions {
   return {
     ...HEADER_NAMES,
+    defaultApiUrl: DEFAULT_NETBIRD_API_URL,
     allowedApiHosts: ALLOWED,
     directPatEnabled: true,
     verifyPat: vi.fn(async (): Promise<TokenVerification> => "ok"),
@@ -33,6 +34,7 @@ function directOpts(over: Partial<AuthResolutionOptions> = {}): AuthResolutionOp
 function newProvider(): NetBirdOAuthProvider {
   return new NetBirdOAuthProvider({
     logger: silentLogger,
+    defaultApiUrl: DEFAULT_NETBIRD_API_URL,
     verifyPatOnLogin: false,
     maxRequestsPerMinute: DEFAULT_MAX_REQUESTS_PER_MINUTE,
     requestTimeoutMs: DEFAULT_REQUEST_TIMEOUT_MS,

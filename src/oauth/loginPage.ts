@@ -1,5 +1,3 @@
-import { DEFAULT_NETBIRD_API_URL } from "../config.js";
-
 export interface LoginPageParams {
   clientId: string;
   redirectUri: string;
@@ -61,8 +59,8 @@ export function renderLoginPage(p: LoginPageParams, error?: string): string {
 
     <label for="netbird_api_url">NetBird API URL</label>
     <input id="netbird_api_url" name="netbird_api_url" type="text"
-      value="${esc(DEFAULT_NETBIRD_API_URL)}" />
-    <div class="hint">Change only if you self-host NetBird.</div>
+      value="" />
+    <div class="hint">Leave blank to use this server's configured NetBird API URL.</div>
 
     ${hidden("client_id", p.clientId)}
     ${hidden("redirect_uri", p.redirectUri)}

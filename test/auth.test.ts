@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { authFromEnv } from "../src/auth/fromEnv.js";
 import { authFromRequest } from "../src/auth/fromRequest.js";
 import { AuthError } from "../src/auth/context.js";
+import { DEFAULT_NETBIRD_API_URL } from "../src/config.js";
 import { HEADER_NAMES } from "./helpers.js";
 
 describe("authFromEnv (local)", () => {
@@ -25,7 +26,7 @@ describe("authFromEnv (local)", () => {
 
 describe("authFromRequest (cloud)", () => {
   // Header names are required parameters now — config.ts is their only default source.
-  const headers = HEADER_NAMES;
+  const headers = { ...HEADER_NAMES, defaultApiUrl: DEFAULT_NETBIRD_API_URL };
 
   it("reads the dedicated token header", () => {
     const auth = authFromRequest({ "x-netbird-token": "pat" }, headers);
@@ -54,7 +55,7 @@ describe("authFromRequest (cloud)", () => {
   it("honors custom header names supplied by the caller", () => {
     const auth = authFromRequest(
       { "x-custom-token": "pat", "x-custom-url": "https://self.hosted/" },
-      { tokenHeader: "x-custom-token", urlHeader: "x-custom-url" },
+      { tokenHeader: "x-custom-token", urlHeader: "x-custom-url", defaultApiUrl: DEFAULT_NETBIRD_API_URL },
     );
     expect(auth).toEqual({ token: "pat", baseUrl: "https://self.hosted" });
   });

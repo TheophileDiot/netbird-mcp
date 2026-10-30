@@ -140,7 +140,7 @@ steered at an arbitrary host or driven with an unverified token.
 | `NETBIRD_VERIFY_PAT_ON_LOGIN` | cloud | `true` | Live-check the PAT during OAuth login |
 | `NETBIRD_TRUST_PROXY` | cloud | `false` | Express `trust proxy` for real client IPs behind a proxy: hop count (e.g. `1`) or preset (`loopback`). Bare booleans are rejected — trusting every proxy allows IP spoofing |
 | `NETBIRD_TOKEN_HEADER` | cloud | `x-netbird-token` | Header carrying the caller's PAT (direct-PAT mode) |
-| `NETBIRD_URL_HEADER` | cloud | `x-netbird-api-url` | Optional per-tenant base URL header |
+| `NETBIRD_URL_HEADER` | cloud | `x-netbird-api-url` | Optional per-tenant base URL header; when absent, direct-PAT requests use the configured `NETBIRD_API_URL` |
 
 Boolean variables accept `1`, `true`, `yes`, or `on` (case-insensitive) as true; any other
 value — including a typo — is treated as **false**, so a misspelled flag fails closed rather
