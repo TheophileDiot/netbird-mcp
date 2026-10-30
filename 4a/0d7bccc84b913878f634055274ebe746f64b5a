@@ -1,0 +1,43 @@
+src/config.ts
+  s_c3680567474926::t_1b93d1ca721c9e 54-55,159,178-179
+src/oauth/core.ts
+  s_c3680567474926::t_1b93d1ca721c9e 30-31,107,122,195
+src/bin/http.ts
+  s_c3680567474926::t_1b93d1ca721c9e 35,112
+test/auth.test.ts
+  s_c3680567474926::t_26a1bef59077ad 5,29,58
+src/oauth/loginPage.ts
+  s_c3680567474926::t_1b93d1ca721c9e 62-63
+test/oauthCore.test.ts
+  s_c3680567474926::t_26a1bef59077ad 3,12
+test/resolve.test.ts
+  s_c3680567474926::t_26a1bef59077ad 4,26,37
+README.md
+  s_c3680567474926::t_1b93d1ca721c9e 143
+test/oauth.test.ts
+  s_c3680567474926::t_26a1bef59077ad 3,17
+test/tools.test.ts
+  s_c3680567474926::t_26a1bef59077ad 33
+test/defaultApiUrl.test.ts
+  s_c3680567474926::t_218acad705b8e0 27-30,81
+  s_c3680567474926::t_1c0aa36714d72f 2,57,60-61
+  s_c3680567474926::t_b794f7536b650a 1,3-26,31-56,58-59,62-80,82-88
+src/auth/fromRequest.ts
+  s_c3680567474926::t_1b93d1ca721c9e 6-7,57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4a0d7bccc84b913878f634055274ebe746f64b5a",
+  "prompts": {},
+  "sessions": {
+    "s_c3680567474926": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a18c43-7340-7280-9629-db6db5c7a8b8",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "TheophileDiot <tdiot@bunkerity.com>"
+    }
+  }
+}
