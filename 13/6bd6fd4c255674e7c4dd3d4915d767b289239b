@@ -1,0 +1,20 @@
+Dockerfile
+  s_f4eb8e70225faf::t_2d2791fdb26c31 17
+  s_f4eb8e70225faf::t_3c941e70795b92 14-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "136bd6fd4c255674e7c4dd3d4915d767b289239b",
+  "prompts": {},
+  "sessions": {
+    "s_f4eb8e70225faf": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a18c65-8777-7770-a495-9ec54f484444",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "TheophileDiot <tdiot@bunkerity.com>"
+    }
+  }
+}
