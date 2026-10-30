@@ -35,10 +35,11 @@ export function buildServer(deps: BuildServerDeps): McpServer {
     fetchImpl: deps.fetchImpl,
   });
 
-  const server = new McpServer({
-    name: SERVER_NAME,
-    version: SERVER_VERSION,
-  });
+  const server = new McpServer(
+    { name: SERVER_NAME, version: SERVER_VERSION },
+    // Bound collection validation even for inputs under the HTTP parser's byte limit.
+    { maxToolInputElements: 10_000 },
+  );
 
   registerAllTools(server, { client, config, logger });
   return server;
