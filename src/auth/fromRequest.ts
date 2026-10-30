@@ -3,6 +3,8 @@ import { normalizeBaseUrl } from "../config.js";
 import { AuthContext, AuthError } from "./context.js";
 
 export interface RequestAuthOptions {
+  /** Resolved config.defaultApiUrl, used when the URL header is absent or blank. */
+  defaultApiUrl: string;
   /**
    * Header carrying the caller's NetBird PAT. Required — the default lives in
    * config.ts (NETBIRD_TOKEN_HEADER) and is threaded in by the entrypoint, so
@@ -52,5 +54,5 @@ export function authFromRequest(
     );
   }
 
-  return { token, baseUrl: normalizeBaseUrl(headerValue(headers, urlHeader)) };
+  return { token, baseUrl: normalizeBaseUrl(headerValue(headers, urlHeader), opts.defaultApiUrl) };
 }

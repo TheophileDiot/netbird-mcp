@@ -27,6 +27,8 @@ const UNKNOWN_LOGIN_SOURCE = "unknown";
 
 export interface OAuthCoreOptions {
   logger: Logger;
+  /** Resolved config.defaultApiUrl, used when the login URL field is blank. */
+  defaultApiUrl: string;
   /** Verify a NetBird PAT during login by making a cheap read call. */
   verifyPatOnLogin?: boolean;
   /**
@@ -102,6 +104,7 @@ export class OAuthCore {
   private readonly timeoutMs: number;
   private readonly fetchImpl: typeof fetch;
   private readonly allowedApiHosts: readonly string[];
+  private readonly defaultApiUrl: string;
   // Shared across all logins so a burst of login attempts is throttled as one
   // stream, not one fresh (and therefore never-tripping) limiter per attempt.
   private readonly verifyLimiter: RateLimiter;
@@ -116,6 +119,7 @@ export class OAuthCore {
     this.timeoutMs = opts.requestTimeoutMs;
     this.fetchImpl = opts.fetchImpl ?? fetch;
     this.allowedApiHosts = opts.allowedApiHosts;
+    this.defaultApiUrl = opts.defaultApiUrl;
     this.verifyLimiter = new RateLimiter(opts.maxRequestsPerMinute);
     const perSourceMax = Math.max(1, Math.floor(opts.maxRequestsPerMinute / LOGIN_VERIFY_SOURCE_SHARE));
     this.verifySourceLimiters = new LimiterPool(perSourceMax);
@@ -188,7 +192,7 @@ export class OAuthCore {
       resource: form.resource ?? "",
     };
     const netbirdToken = (form.netbirdToken ?? "").trim();
-    const baseUrl = normalizeBaseUrl(form.netbirdApiUrl);
+    const baseUrl = normalizeBaseUrl(form.netbirdApiUrl, this.defaultApiUrl);
     const urlCheck = checkApiUrl(baseUrl, this.allowedApiHosts);
     if (!urlCheck.allowed) {
       return {

@@ -32,6 +32,7 @@ const { port, tokenHeader, urlHeader, oauthEnabled, directPatEnabled, publicBase
 
 const provider = new NetBirdOAuthProvider({
   logger,
+  defaultApiUrl: config.defaultApiUrl,
   verifyPatOnLogin,
   maxRequestsPerMinute: config.maxRequestsPerMinute,
   requestTimeoutMs: config.requestTimeoutMs,
@@ -108,6 +109,7 @@ app.post("/mcp", async (req, res) => {
       provider: oauthEnabled ? provider : undefined,
       tokenHeader,
       urlHeader,
+      defaultApiUrl: config.defaultApiUrl,
       allowedApiHosts: config.allowedApiHosts,
       directPatEnabled,
       verifyPat: verifyDirectPat,

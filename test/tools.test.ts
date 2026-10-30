@@ -30,6 +30,7 @@ const silentLogger: Logger = {
 };
 
 const baseConfig: ServerConfig = {
+  defaultApiUrl: "https://api.netbird.io",
   enableDestructive: false,
   maxRequestsPerMinute: 1000,
   requestTimeoutMs: 5000,

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { OAuthCore, type OAuthCoreOptions } from "../src/oauth/core.js";
-import { DEFAULT_MAX_REQUESTS_PER_MINUTE, DEFAULT_REQUEST_TIMEOUT_MS } from "../src/config.js";
+import { DEFAULT_MAX_REQUESTS_PER_MINUTE, DEFAULT_REQUEST_TIMEOUT_MS, DEFAULT_NETBIRD_API_URL } from "../src/config.js";
 import { renderLoginPage, type LoginPageParams } from "../src/oauth/loginPage.js";
 import { InvalidGrantError, InvalidScopeError } from "@modelcontextprotocol/sdk/server/auth/errors.js";
 import type { OAuthClientInformationFull } from "@modelcontextprotocol/sdk/shared/auth.js";
@@ -9,6 +9,7 @@ import { silentLogger, pkcePair, TEST_ALLOWED_API_HOSTS } from "./helpers.js";
 function newCore(opts: Partial<OAuthCoreOptions> = {}): OAuthCore {
   return new OAuthCore({
     logger: silentLogger,
+    defaultApiUrl: DEFAULT_NETBIRD_API_URL,
     verifyPatOnLogin: false,
     maxRequestsPerMinute: DEFAULT_MAX_REQUESTS_PER_MINUTE,
     requestTimeoutMs: DEFAULT_REQUEST_TIMEOUT_MS,
